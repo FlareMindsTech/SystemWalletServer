@@ -1,3 +1,5 @@
+import User from "../Modules/UserModule";
+
 export const addMoney = async (req, res) => {
   const { userId, amount } = req.body;
 
