@@ -1,15 +1,42 @@
 import express from "express";
-import { deleteUser, getAllUser, getUserById, login, profile, Register, updateUser } from "../Controller/UserController.js";
-// import { Authendication } from "../Middleware/Auth.js";
+import {
+  Register,
+  login,
+  updateUser,
+  deleteUser,
+  profile,
+  getAllUser,
+  getUserById
+} from "../Controller/UserController.js";
+
+import { Authentication } from "../Middleware/Auth.js";
+
 const router = express.Router();
 
-router.post("/register",Register)
-// router.post("/login",login)
-// router.get("/profile",Authendication,profile)
-// router.put("/v2/update",  updateUser)
-// router.delete("/v2/deleteUser",  deleteUser)
-// router.get("/get",  getAllUser)
-// router.get("/v2/getbyid/:id", getUserById)
+/* ================= AUTH ================= */
+
+// Register new user
+router.post("/register", Register);
+
+// Login user
+router.post("/login", login);
 
 
-export default router   
+/* ================= USER ================= */
+
+// Get logged-in user profile
+router.get("/profile", Authentication, profile);
+
+// Update user by ID
+router.put("/update/:id", Authentication, updateUser);
+
+// Delete user by email
+router.delete("/delete", Authentication, deleteUser);
+
+// Get all users
+router.get("/", Authentication, getAllUser);
+
+// Get user by ID
+router.get("/:id", Authentication, getUserById);
+
+export default router;
