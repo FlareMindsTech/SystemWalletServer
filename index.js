@@ -1,26 +1,55 @@
-import express from 'express';
-import bodyParser from 'body-parser';
-import mongoose from 'mongoose'
-import dotenv from "dotenv"
-import cors from "cors"
-import user from './Routes/UserRouter.js';
+import dotenv from "dotenv";
+dotenv.config();
+import express from "express";
+import bodyParser from "body-parser";
+import mongoose from "mongoose";
+import cors from "cors";
+import multer from "multer";
+import user from "./Routes/UserRouter.js";
 
-dotenv.config() 
-
+const upload = multer();
 const app = express();
 
+// Middlewares
 app.use(cors());
-app.use(bodyParser.json());
+app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(upload.any());
 
-mongoose.set('strictQuery', false);
-mongoose.connect('mongodb://127.0.0.1:27017/SYSTEMWALLETDB')
-  .then(() => console.log('Connected to MongoDB...'))
-  .catch(err => console.error('Could not connect to MongoDB... ' + err.message));
+// Debugging Middleware
+app.use((req, res, next) => {
+  console.log(`📡 ${req.method} ${req.url}`);
+  console.log("Body:", JSON.stringify(req.body, null, 2));
+  if (req.files) {
+    console.log("Files:", req.files.map(f => ({ fieldname: f.fieldname, originalname: f.originalname })));
+  }
+  next();
+});
 
-app.use("/api/sw/user",user)
+// MongoDB
+mongoose.set("strictQuery", false);
 
+const connectDB = async () => {
+  try {
+    await mongoose.connect(process.env.MONGO_URI, {
+      serverSelectionTimeoutMS: 5000
+    });
+    console.log("✅ Connected to MongoDB Atlas");
+  } catch (error) {
+    console.error("❌ MongoDB connection error:", error.message);
+    process.exit(1);
+  }
+};
 
-const PORT = process.env.PORT || 7800;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+connectDB();
+
+// Routes
+app.use("/api/users", user);
+
+// Server
+const PORT = 5000;
+app.listen(PORT, () => {
+  console.log(`🚀 Server running on port ${PORT}`);
+});
+
 export default app;
