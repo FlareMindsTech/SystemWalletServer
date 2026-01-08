@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 
-export const Authentication = (req, res, next) => {
+ const Authentication = (req, res, next) => {
   try {
     const authHeader = req.headers.authorization;
 
@@ -25,8 +25,7 @@ export const Authentication = (req, res, next) => {
   }
 };
 
-
-export const Authorization = (req, res, next) => {
+ const Authorization = (req, res, next) => {
   try {
     // Static admin check
     if (!req.user || req.user.type !== "ADMIN") {
@@ -44,3 +43,4 @@ export const Authorization = (req, res, next) => {
     });
   }
 };
+export { Authentication, Authorization };

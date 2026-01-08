@@ -8,8 +8,8 @@ import {
   getAllUser,
   getUserById
 } from "../Controller/UserController.js";
-
 import { Authentication } from "../Middleware/Auth.js";
+
 
 const router = express.Router();
 
@@ -25,7 +25,7 @@ router.post("/login", login);
 /* ================= USER ================= */
 
 // Get logged-in user profile
-router.get("/profile",  profile);
+router.get("/profile",Authentication ,  profile);
 
 // Update user by ID
 router.put("/update/:id",  updateUser);
