@@ -25,18 +25,18 @@ router.post("/login", login);
 /* ================= USER ================= */
 
 // Get logged-in user profile
-router.get("/profile", Authentication, profile);
+router.get("/profile",  profile);
 
 // Update user by ID
-router.put("/update/:id", Authentication, updateUser);
+router.put("/update/:id",  updateUser);
 
 // Delete user by email
-router.delete("/delete", Authentication, deleteUser);
+router.delete("/delete",  deleteUser);
 
 // Get all users
 router.get("/",  getAllUser);
 
 // Get user by ID
-router.get("/:id", Authentication, getUserById);
+router.get("/:id",  getUserById);
 
 export default router;
