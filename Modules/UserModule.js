@@ -5,10 +5,11 @@ const user = new mongoose.Schema({
         type: String,
         // required: true
     },
-    RerenceceID: {
-        type: String,
-        required: true
-    },
+    ReferenceID: {
+  type: String,
+  unique: true
+},
+
     email: {
         type: String,
         required: true

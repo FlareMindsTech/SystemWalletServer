@@ -17,7 +17,7 @@ const generateReferenceID = async () => {
     const randomNumber = Math.floor(100000 + Math.random() * 900000); // 6 digits
     referenceID = `${prefix}${randomNumber}`;
 
-    const user = await User.findOne({ RerenceceID: referenceID });
+    const user = await User.findOne({ ReferenceID: referenceID });
     exists = !!user;
   }
 
@@ -79,7 +79,7 @@ export const Register = async (req, res) => {
     }
 
     // Auto-generate Reference ID
-    const RerenceceID = await generateReferenceID();
+    const ReferenceID = await generateReferenceID();
 
     // 🔐 Auto-generate password
     const plainPassword = generatePassword(userName, mobileNo);
@@ -90,7 +90,7 @@ export const Register = async (req, res) => {
 
     const register = new User({
       userName,
-      RerenceceID,
+      ReferenceID,
       email,
       mobileNo,
       password: hash,
@@ -111,7 +111,7 @@ export const Register = async (req, res) => {
 
     res.status(201).json({
       message: "User created successfully",
-      RerenceceID,
+      ReferenceID: ReferenceID,
       password: plainPassword,
       id: user._id
     });

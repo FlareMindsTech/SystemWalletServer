@@ -34,7 +34,7 @@ router.put("/update/:id", Authentication, updateUser);
 router.delete("/delete", Authentication, deleteUser);
 
 // Get all users
-router.get("/", Authentication, getAllUser);
+router.get("/",  getAllUser);
 
 // Get user by ID
 router.get("/:id", Authentication, getUserById);
