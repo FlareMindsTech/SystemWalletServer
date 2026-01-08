@@ -60,10 +60,10 @@ export const sendUserMail = async (
         };
 
         await transporter.sendMail(mailOptions);
-        console.log("✅ User credential email sent successfully");
+        // console.log("✅ User credential email sent successfully");
 
     } catch (error) {
-        console.error("❌ Email sending failed:", error);
+        // console.error("❌ Email sending failed:", error);
         throw error;
     }
 };

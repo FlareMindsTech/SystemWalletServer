@@ -105,7 +105,7 @@ export const Register = async (req, res) => {
     });
 
     const user = await register.save();
-    console.log("SMTP USER:", process.env.MAIL_USER);
+    // console.log("SMTP USER:", process.env.MAIL_USER);
 
     await sendUserMail(email, mobileNo, plainPassword);
 

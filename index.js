@@ -17,14 +17,14 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(upload.any());
 
 // Debugging Middleware
-app.use((req, res, next) => {
-  console.log(`📡 ${req.method} ${req.url}`);
-  console.log("Body:", JSON.stringify(req.body, null, 2));
-  if (req.files) {
-    console.log("Files:", req.files.map(f => ({ fieldname: f.fieldname, originalname: f.originalname })));
-  }
-  next();
-});
+// app.use((req, res, next) => {
+//   console.log(`📡 ${req.method} ${req.url}`);
+//   console.log("Body:", JSON.stringify(req.body, null, 2));
+//   if (req.files) {
+//     console.log("Files:", req.files.map(f => ({ fieldname: f.fieldname, originalname: f.originalname })));
+//   }
+//   next();
+// });
 
 // MongoDB
 mongoose.set("strictQuery", false);
