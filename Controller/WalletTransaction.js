@@ -1,7 +1,7 @@
-import User from "../Modules/UserModule";
-import WalletTransaction from "../Modules/WalletTransactionModule";
+import User from "../Modules/UserModule.js";
+import WalletTransaction from "../Modules/WalletTransactionModule.js";
 
-export const addMoney = async (req, res) => {
+export const AddMoney = async (req, res) => {
   const { userId, amount } = req.body;
 
   if (amount <= 0) {
@@ -11,24 +11,24 @@ export const addMoney = async (req, res) => {
   const user = await User.findById(userId);
   if (!user) return res.status(404).json({ message: "User not found" });
 
-  user.walletBalance += Number(amount);
+  user.balance  += Number(amount);
   await user.save();
 
   await WalletTransaction.create({
     userId,
     action: "ADD",
     amount,
-    balanceAfter: user.walletBalance
+    balanceAfter: user.balance 
   });
 
   res.json({
     message: "Money added successfully",
-    balance: user.walletBalance
+    balance: user.balance
   });
 };
 
 
-export const deductMoney = async (req, res) => {
+export const DeductMoney = async (req, res) => {
   const { userId, amount } = req.body;
 
   if (amount <= 0) {

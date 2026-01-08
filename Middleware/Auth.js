@@ -25,10 +25,9 @@ import jwt from "jsonwebtoken";
   }
 };
 
- const Authorization = (req, res, next) => {
+const Authorization = (req, res, next) => {
   try {
-    // Static admin check
-    if (!req.user || req.user.type !== "ADMIN") {
+    if (!req.user || req.user.role !== "Admin") {
       return res.status(403).json({
         success: false,
         message: "Admin access only"
@@ -40,7 +39,8 @@ import jwt from "jsonwebtoken";
     return res.status(403).json({
       success: false,
       message: "Access denied"
-    });
-  }
+    }); 
+  } 
 };
+
 export { Authentication, Authorization };

@@ -21,7 +21,8 @@ const walletTransaction = new mongoose.Schema(
 
     balanceAfter: {
       type: Number,
-      required: true
+      required: true,
+      default: 0
     }
   },
   { timestamps: true }

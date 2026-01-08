@@ -4,27 +4,14 @@ import express from "express";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import cors from "cors";
-import multer from "multer";
 import user from "./Routes/UserRouter.js";
-
-const upload = multer();
+import transaction from "./Routes/WalletTransaction.js";
 const app = express();
 
 // Middlewares
 app.use(cors());
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(upload.any());
-
-// Debugging Middleware
-// app.use((req, res, next) => {
-//   console.log(`📡 ${req.method} ${req.url}`);
-//   console.log("Body:", JSON.stringify(req.body, null, 2));
-//   if (req.files) {
-//     console.log("Files:", req.files.map(f => ({ fieldname: f.fieldname, originalname: f.originalname })));
-//   }
-//   next();
-// });
 
 // MongoDB
 mongoose.set("strictQuery", false);
@@ -45,6 +32,7 @@ connectDB();
 
 // Routes
 app.use("/api/users", user);
+app.use("/api/transactions", transaction);
 
 // Server
 const PORT = 5000;
